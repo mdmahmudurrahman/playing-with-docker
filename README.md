@@ -105,3 +105,77 @@ sudo docker-compose run --rm redis redis-cli -h redis
 ```
 => sudo rm tmp/pids/server.pid
 ```
+
+To start the database service
+
+```
+sudo docker-compose up -d database
+```
+
+To see the database service logs
+
+```
+sudo docker-compose logs database
+```
+
+pg_ctl -D /var/lib/postgresql/data -l logfile start
+
+Create development and test database
+
+```
+sudo docker-compose run --rm web bin/rails db:create
+```
+
+To recreate the web service container
+
+```
+sudo docker-compose up -d --force-recreate web
+```
+
+Generate scaffold inside docker
+
+```
+sudo docker-compose exec web bin/rails g scaffold User first_name:string last_name:string
+```
+
+To migrate generated scaffold
+
+```
+sudo docker-compose exec web bin/rails db:migrate
+```
+
+To explicitely remove database container
+
+```
+sudo docker-compose stop database
+
+sudo docker-compose rm -f database
+```
+
+To start the database service again
+
+```
+
+```
+
+After wiping the database, we need to create, migrate the database again
+
+```
+sudo docker-compose exec web bin/rails db:create db:migrate
+```
+
+Try remove the database container again, create it again, and see the previous data exists or not
+
+```
+sudo docker-compose stop database
+
+sudo docker-compose rm database
+
+sudo docker-compose up -d database
+
+```
+
+Reload the browser!!! This now need to create, migrate the database, because the data is presisted 
+in the named volume "db_data" which is defined in docker-compose.yml
+
+

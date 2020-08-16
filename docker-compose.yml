@@ -7,6 +7,23 @@ services:
       - "3000:3000"
     volumes:
       - .:/usr/src/app
+    environment:
+      DATABASE_HOST: database
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: doc-app-sqlit
       
   redis:
     image: redis
+
+  database:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: doc-app-sqlit
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
