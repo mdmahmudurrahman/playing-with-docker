@@ -80,4 +80,28 @@ To see the logs of running service
 => sudo docker-compose logs -f web
 ```
 
+To run a container pulling it from docker hub
 
+```
+sudo docker run --name custom_container_name image_in_deocker_hub
+```
+
+To start the redis server inside the docker container
+
+```
+sudo docker-compose up -d redis
+
+sudo docker-compose logs redis # To see the redis log
+```
+
+To start redis-cli inside the docker, to test whether it work properly
+
+```
+sudo docker-compose run --rm redis redis-cli -h redis
+```
+
+### If a rails server is already running inside the docker container, just remove the server.pid file
+
+```
+=> sudo rm tmp/pids/server.pid
+```
